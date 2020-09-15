@@ -22,6 +22,7 @@ activity <- read.csv(file="activity.csv", header=TRUE)
 
 ```{r echo=TRUE}
 totalsteps<-aggregate(steps~date,activity,FUN=sum)
+totalsteps
 ```
 
 2.Histogram of the total number of steps taken per day
@@ -35,6 +36,8 @@ hist(totalsteps$steps,main="Total steps per day",xlab="Number of steps")
 ```{r echo=TRUE}
 meanSteps <- mean(totalsteps$steps, na.rm = TRUE)
 medianSteps <- median(totalsteps$steps, na.rm = TRUE)
+meanSteps
+medianSteps
 ```
 
 ## What is the average daily activity pattern?
@@ -55,6 +58,7 @@ ggplot(data = mean_steps_int, aes(x = interval, y = steps)) +
 
 ```{r echo=TRUE}
 maxiint <- mean_steps_int[which.max(mean_steps_int$steps),]
+maxiint
 ```
 
 ## Imputing missing values
