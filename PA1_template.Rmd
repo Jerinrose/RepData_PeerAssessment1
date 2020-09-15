@@ -18,19 +18,19 @@ activity <- read.csv(file="activity.csv", header=TRUE)
 
 ## What is mean total number of steps taken per day?
 
-Total steps taken per day
+1.Total steps taken per day
 
 ```{r echo=TRUE}
 totalsteps<-aggregate(steps~date,activity,FUN=sum)
 ```
 
-Histogram of the total number of steps taken per day
+2.Histogram of the total number of steps taken per day
 
 ```{r echo=TRUE}
 hist(totalsteps$steps,main="Total steps per day",xlab="Number of steps")
 ```
 
-Mean and median of the total number of steps taken per day
+3.Mean and median of the total number of steps taken per day
 
 ```{r echo=TRUE}
 meanSteps <- mean(totalsteps$steps, na.rm = TRUE)
@@ -39,7 +39,7 @@ medianSteps <- median(totalsteps$steps, na.rm = TRUE)
 
 ## What is the average daily activity pattern?
 
-Time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+1.Time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 ```{r echo=TRUE} 
 mean_steps_int <- aggregate(steps ~ interval, activity, mean)
@@ -51,7 +51,7 @@ ggplot(data = mean_steps_int, aes(x = interval, y = steps)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-The 5-minute interval, on average across all the days in the dataset, which contains the maximum number of steps
+2.The 5-minute interval, on average across all the days in the dataset, which contains the maximum number of steps
 
 ```{r echo=TRUE}
 maxiint <- mean_steps_int[which.max(mean_steps_int$steps),]
@@ -59,14 +59,14 @@ maxiint <- mean_steps_int[which.max(mean_steps_int$steps),]
 
 ## Imputing missing values
 
-Total number of missing values in the dataset
+1.Total number of missing values in the dataset
 
 ```{r echo=TRUE}
 missingvalues <- is.na(activity$steps)
 NROW(missingvalues)
 ```
 
-Replacing these missing values with the 5-day average of that respective interval and creating new dataset
+2.Replacing these missing values with the 5-day average of that respective interval and creating new dataset
 
 ```{r echo=TRUE}
 new_activity_data <- transform(activity,steps = ifelse(is.na(activity$steps),
@@ -75,13 +75,13 @@ new_activity_data <- transform(activity,steps = ifelse(is.na(activity$steps),
                                       activity$steps))
 ```
 
-Histogram of the total number of steps taken each day
+3.Histogram of the total number of steps taken each day
 ```{r echo=TRUE}
 newsteps<- aggregate(steps ~ date, new_activity_data, FUN=sum)
 hist(newsteps$steps,main="After Imputing missing values",xlab="Number pf steps")
 ```
 
-Impact of new mean,median,Totalsteps
+4.Impact of new mean,median,Totalsteps
 
 ```{r echo=TRUE}
 newmeansteps<-mean(newsteps$steps,na.rm=TRUE)
@@ -97,7 +97,7 @@ The diffrence in total steps is 86129.51
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-Creating a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day
+1.Creating a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day
 
 ```{r echo=TRUE}
 DayType <- function(date) {
@@ -113,7 +113,7 @@ new_activity_data$date <- as.Date(new_activity_data$date)
 new_activity_data$day <- sapply(new_activity_data$date, FUN = DayType)
 ```
 
-Plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
+2.Plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
 
 ```{r echo=TRUE}
 meanStepsbyDay <- aggregate(steps ~ interval + day, new_activity_data, mean)
