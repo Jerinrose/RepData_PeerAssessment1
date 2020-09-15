@@ -27,6 +27,20 @@ totalsteps<-aggregate(steps~date,activity,FUN=sum)
 head(totalsteps,10)
 ```
 
+```
+##          date steps
+## 1  2012-10-02   126
+## 2  2012-10-03 11352
+## 3  2012-10-04 12116
+## 4  2012-10-05 13294
+## 5  2012-10-06 15420
+## 6  2012-10-07 11015
+## 7  2012-10-09 12811
+## 8  2012-10-10  9900
+## 9  2012-10-11 10304
+## 10 2012-10-12 17382
+```
+
 2.Histogram of the total number of steps taken per day
 
 
@@ -43,7 +57,18 @@ hist(totalsteps$steps,main="Total steps per day",xlab="Number of steps")
 meanSteps <- mean(totalsteps$steps, na.rm = TRUE)
 medianSteps <- median(totalsteps$steps, na.rm = TRUE)
 meanSteps
+```
+
+```
+## [1] 10766.19
+```
+
+```r
 medianSteps
+```
+
+```
+## [1] 10765
 ```
 
 ## What is the average daily activity pattern?
@@ -69,6 +94,10 @@ ggplot(data = mean_steps_int, aes(x = interval, y = steps)) +
 ```r
 maxiint <- mean_steps_int[which.max(mean_steps_int$steps),]
 maxiint
+```
+```
+##     interval    steps
+## 104      835 206.1698
 ```
 
 ## Imputing missing values
